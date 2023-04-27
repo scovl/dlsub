@@ -1,11 +1,20 @@
-import re
+from helper import parse_arguments
 from youtube_transcript_api import YouTubeTranscriptApi
+import re
 
 class dlsub:
     def __init__(self, video_id):
         self.video_id = video_id
     
     def save_transcript(self, output_file, format=False):
+        """
+        Download the transcript for a YouTube video and save it to a file.
+
+        Args:
+            output_file (str): The name of the file to save the transcript to.
+            format (bool, optional): Whether to format the transcript by removing
+                unwanted characters like numbers and punctuation. Defaults to False.
+        """
         try:
             transcript_list = YouTubeTranscriptApi.get_transcript(self.video_id)
             with open(output_file, "w", encoding="utf-8") as f:
@@ -19,6 +28,13 @@ class dlsub:
             print(f"Error getting transcript: {str(e)}")
     
     def format_transcript(self, input_file, output_file):
+        """
+        Format a transcript file by removing unwanted characters like numbers and punctuation.
+
+        Args:
+            input_file (str): The name of the input file to be formatted.
+            output_file (str): The name of the formatted output file.
+        """
         with open(input_file, 'r', encoding='utf-8') as f:
             raw_transcript = f.readlines()
 
@@ -41,8 +57,6 @@ class dlsub:
         print(f"Formatted transcript saved in {output_file}.")
 
 if __name__ == '__main__':
-    video_id = 'QOIJeIbxquM'
-    output_file = f"{video_id}_transcript.txt"
-
-    downloader = dlsub(video_id)
-    downloader.save_transcript(output_file, format=True)
+    args = parse_arguments()
+    downloader = dlsub(args.download)
+    downloader.save_transcript(args.output, format=args.format)
