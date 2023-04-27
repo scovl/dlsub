@@ -1,18 +1,21 @@
 import argparse
+from dlsub import dlsub
 
 def parse_arguments():
     """
     Parse command line arguments.
 
     Returns:
-        argparse.Namespace: The parsed command line arguments.
+        argparse.Namespace: The parsed arguments as a namespace object.
     """
-    parser = argparse.ArgumentParser(description='Download YouTube subtitles')
-    parser.add_argument('--download', metavar='VIDEO_ID', required=True,
-                        help='YouTube video ID')
-    parser.add_argument('-o', '--output', metavar='OUTPUT_FILE', required=True,
-                        help='Path to output file')
-    parser.add_argument('-f', '--format', action='store_true', default=False,
-                        help='Format the transcript')
+    parser = argparse.ArgumentParser(description='Download transcripts from YouTube videos.')
+
+    # Required arguments
+    parser.add_argument('--download', metavar='VIDEO_ID', required=True, help='the video ID to download the transcript from')
+    parser.add_argument('-o', '--output', metavar='OUTPUT_FILE', required=True, help='the name of the output file')
+
+    # Optional arguments
+    parser.add_argument('-f', '--format', action='store_true', help='format the transcript by removing unwanted characters like numbers and punctuation')
+    parser.add_argument('-m', '--minify', action='store_true', help='minify the transcript by removing extra whitespace and line breaks')
 
     return parser.parse_args()
