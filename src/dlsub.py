@@ -55,8 +55,24 @@ class dlsub:
                 f.write(f"{line}\n")
 
         print(f"Formatted transcript saved in {output_file}.")
+        
+    def minify_transcript(self, input_file, output_file):
+        """
+        Minify a transcript file by removing extra whitespace and line breaks.
 
-if __name__ == '__main__':
-    args = parse_arguments()
-    downloader = dlsub(args.download)
-    downloader.save_transcript(args.output, format=args.format)
+        Args:
+            input_file (str): The name of the input file to be minified.
+            output_file (str): The name of the minified output file.
+        """
+        with open(input_file, 'r', encoding='utf-8') as f:
+            raw_transcript = f.read()
+
+        # Minify the transcript by removing extra whitespace and line breaks
+        minified_transcript = re.sub(r'\s+', ' ', raw_transcript)
+        minified_transcript = minified_transcript.strip()
+
+        # Save the minified transcript to a new file
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(minified_transcript)
+
+        print(f"Minified transcript saved in {output_file}.")
