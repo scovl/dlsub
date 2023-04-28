@@ -76,3 +76,22 @@ class dlsub:
             f.write(minified_transcript)
 
         print(f"Minified transcript saved in {output_file}.")
+        
+if __name__ == '__main__':
+    video_id = 'QOIJeIbxquM'
+    output_dir = 'transcripts'
+    output_file = "transcript.txt"
+    
+    # Instanciar um objeto da classe dlsub
+    downloader = dlsub(video_id)
+
+    # Chamar o método save_transcript
+    downloader.save_transcript(output_file)
+
+    # Se você quiser formatar o arquivo de transcrição
+    formatted_output_file = "formatted_transcript.txt"
+    downloader.format_transcript(output_file, formatted_output_file)
+
+    # Se você quiser compactar o arquivo de transcrição
+    minified_output_file = "minified_transcript.txt"
+    downloader.minify_transcript(output_file, minified_output_file)

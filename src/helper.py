@@ -1,5 +1,4 @@
 import argparse
-from dlsub import dlsub
 
 def parse_arguments():
     """
