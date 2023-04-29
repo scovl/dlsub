@@ -1,11 +1,18 @@
+"""
+This module downloads and processes transcripts of YouTube videos.
+"""
+
+import re
 from helper import parse_arguments
 from youtube_transcript_api import YouTubeTranscriptApi
-import re
 
-class dlsub:
+class DLSub:
+    """
+    A class that can download and process transcripts of YouTube videos.
+    """
     def __init__(self, video_id):
         self.video_id = video_id
-    
+
     def save_transcript(self, output_file, format=False):
         """
         Download the transcript for a YouTube video and save it to a file.
@@ -21,12 +28,12 @@ class dlsub:
                 for item in transcript_list:
                     f.write(f"{item['text']}\n")
             print(f"Transcript saved in {output_file}.")
-            
+
             if format:
                 self.format_transcript(output_file, f"{output_file.split('.')[0]}_formatted.txt")
         except Exception as e:
             print(f"Error getting transcript: {str(e)}")
-    
+
     def format_transcript(self, input_file, output_file):
         """
         Format a transcript file by removing unwanted characters like numbers and punctuation.
@@ -55,7 +62,7 @@ class dlsub:
                 f.write(f"{line}\n")
 
         print(f"Formatted transcript saved in {output_file}.")
-        
+
     def minify_transcript(self, input_file, output_file):
         """
         Minify a transcript file by removing extra whitespace and line breaks.
@@ -76,22 +83,16 @@ class dlsub:
             f.write(minified_transcript)
 
         print(f"Minified transcript saved in {output_file}.")
-        
-if __name__ == '__main__':
-    video_id = 'QOIJeIbxquM'
-    output_dir = 'transcripts'
-    output_file = "transcript.txt"
-    
-    # Instanciar um objeto da classe dlsub
-    downloader = dlsub(video_id)
 
-    # Chamar o método save_transcript
+if __name__ == '__main__':
+    # Define video ID and output file
+    video_id = 'QOIJeIbxquM'
+    output_file = "transcript.txt"
+
+    # Instantiate an object of the DLSub class
+    downloader = DLSub(video_id)
+
+    # Call the save_transcript method
     downloader.save_transcript(output_file)
 
-    # Se você quiser formatar o arquivo de transcrição
-    formatted_output_file = "formatted_transcript.txt"
-    downloader.format_transcript(output_file, formatted_output_file)
-
-    # Se você quiser compactar o arquivo de transcrição
-    minified_output_file = "minified_transcript.txt"
-    downloader.minify_transcript(output_file, minified_output_file)
+  
