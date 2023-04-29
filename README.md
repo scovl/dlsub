@@ -21,7 +21,7 @@ This will download the transcript and save it to `<path/to/transcript_formatted.
 
 ## Installation
 
-1. Create venv environment `python3 venv -m py3nv`.
+1. Create venv environment `python3 venv -m pyenv`.
 2. Clone this repository.
 3. Install the required packages with `pip install -r requirements.txt`.
 4. Run `./dlsub.py` to download transcripts for YouTube videos.
