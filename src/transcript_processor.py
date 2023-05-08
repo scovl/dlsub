@@ -1,5 +1,6 @@
 # transcript_processor.py
 import re
+import json
 
 class TranscriptProcessor:
     """
@@ -10,23 +11,39 @@ class TranscriptProcessor:
 
     def format_transcript(self):
         """
-        Format a transcript by removing unwanted characters like numbers and punctuation.
+        Format a transcript by extracting only 'text' values and grouping them into paragraphs of 5 lines each,
+        with a blank line between every 5 paragraphs.
 
         Returns:
-            List[str]: A list of formatted transcript lines.
+            List[str]: A list of formatted transcript paragraphs.
         """
         formatted_transcript = []
-        for line in self.raw_transcript:
-            # Remove line breaks and extra whitespace
-            line = line.strip()
+        paragraph_lines = []
+        paragraph_count = 0
 
-            # Remove unwanted characters like numbers and punctuation
-            line = re.sub(r'[^\w\s]', '', line)
+        for i, transcript_item in enumerate(self.raw_transcript):
+            # Extract 'text' value
+            text = transcript_item['text']
 
-            # Add formatted line to list
-            formatted_transcript.append(line)
+            # Add text to the current paragraph
+            paragraph_lines.append(text)
+
+            # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
+            if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
+                paragraph = ' '.join(paragraph_lines)
+                formatted_transcript.append(paragraph)
+                paragraph_lines = []
+
+                # Increment paragraph count
+                paragraph_count += 1
+
+                # Add a blank line after every 5 paragraphs
+                if paragraph_count % 5 == 0:
+                    formatted_transcript.append("")
 
         return formatted_transcript
+
+
 
     def minify_transcript(self):
         """
