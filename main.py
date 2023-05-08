@@ -10,7 +10,7 @@ def main():
     args = parse_arguments()
     
     # Download transcript
-    downloader = TranscriptDownloader(args.download, ['pt', 'en'])  # Get transcript in Portuguese or English
+    downloader = TranscriptDownloader(args.download, args.l)  # Get transcript in Portuguese or English
     transcript_list = downloader.download_transcript()
 
     # Save transcript to output file
