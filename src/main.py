@@ -7,10 +7,21 @@ from transcript_processor import TranscriptProcessor
 def main():
     # Parse command line arguments
     args = parse_arguments()
+    
+    
 
     # Download transcript
-    downloader = TranscriptDownloader(args.download)
-    downloader.save_transcript(args.output)
+    downloader = TranscriptDownloader(args.download, ['pt', 'en'])  # Get transcript in Portuguese or English
+    transcript_list = downloader.download_transcript()
+
+    # Save transcript to output file
+    if transcript_list is not None:
+        with open(args.output, 'w', encoding='utf-8') as f:
+            for item in transcript_list:
+                f.write(f"{item}\n")
+        print(f"Transcript saved in {args.output}.")
+    else:
+        print("Transcript download failed.")
 
     # Process transcript
     if args.format or args.minify:
