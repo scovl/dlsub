@@ -1,15 +1,14 @@
 # main.py
 import os
-from helper import parse_arguments
-from transcript_downloader import TranscriptDownloader
-from transcript_processor import TranscriptProcessor
+import json
+from src.helper import parse_arguments
+from src.transcript_downloader import TranscriptDownloader
+from src.transcript_processor import TranscriptProcessor
 
 def main():
     # Parse command line arguments
     args = parse_arguments()
     
-    
-
     # Download transcript
     downloader = TranscriptDownloader(args.download, ['pt', 'en'])  # Get transcript in Portuguese or English
     transcript_list = downloader.download_transcript()
@@ -17,8 +16,7 @@ def main():
     # Save transcript to output file
     if transcript_list is not None:
         with open(args.output, 'w', encoding='utf-8') as f:
-            for item in transcript_list:
-                f.write(f"{item}\n")
+            json.dump(transcript_list, f)
         print(f"Transcript saved in {args.output}.")
     else:
         print("Transcript download failed.")
@@ -26,7 +24,7 @@ def main():
     # Process transcript
     if args.format or args.minify:
         with open(args.output, 'r', encoding='utf-8') as f:
-            raw_transcript = f.readlines()
+            raw_transcript = json.load(f)  # Use json.load() instead of f.readlines()
 
         processor = TranscriptProcessor(raw_transcript)
 
