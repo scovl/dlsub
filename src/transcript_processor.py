@@ -52,8 +52,12 @@ class TranscriptProcessor:
         Returns:
             str: The minified transcript.
         """
+        # Convert the raw_transcript list to a single string
+        transcript_string = " ".join([item["text"] for item in self.raw_transcript])
+
         # Minify the transcript by removing extra whitespace and line breaks
-        minified_transcript = re.sub(r'\s+', ' ', self.raw_transcript)
+        minified_transcript = re.sub(r'\s+', ' ', transcript_string)
         minified_transcript = minified_transcript.strip()
 
         return minified_transcript
+
