@@ -12,40 +12,49 @@ class TranscriptProcessor:
         self.raw_transcript = raw_transcript
 
     def format_transcript(self):
-        """
-        Format a transcript by extracting only 'text' values and grouping them into paragraphs of 5 lines each,
-        with a blank line between every 5 paragraphs.
+            """
+            Format a transcript by extracting only 'text' values and grouping them into paragraphs of 5 lines each,
+            with a blank line between every 5 paragraphs. Corrects text using pyspellchecker.
 
-        Returns:
-            List[str]: A list of formatted transcript paragraphs.
-        """
-        formatted_transcript = []
-        paragraph_lines = []
-        paragraph_count = 0
+            Returns:
+                List[str]: A list of formatted transcript paragraphs.
+            """
+            spell = SpellChecker(language='pt')  # Initialize the SpellChecker for Portuguese
 
-        for i, transcript_item in enumerate(self.raw_transcript):
-            # Extract 'text' value and normalize whitespace
-            text = re.sub(r'\s+', ' ', transcript_item['text']).strip()
+            formatted_transcript = []
+            paragraph_lines = []
+            paragraph_count = 0
 
-            # Add text to the current paragraph
-            paragraph_lines.append(text)
+            for i in tqdm(range(len(self.raw_transcript)), desc="Formatting", unit=" lines"):
+                transcript_item = self.raw_transcript[i]
+                
+                # Extract 'text' value
+                text = transcript_item['text']
 
-            # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
-            if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
-                paragraph = ' '.join(paragraph_lines)
-                paragraph = paragraph.capitalize()  # Capitalize the first letter of the paragraph
-                formatted_paragraph = fill(paragraph, width=120)  # Format the paragraph with 120 columns
-                formatted_transcript.append(formatted_paragraph)
-                paragraph_lines = []
+                # Correct the text using pyspellchecker
+                words = text.split()
+                corrected_words = [spell.correction(word) if spell.correction(word) is not None else word for word in words]
+                corrected_text = ' '.join(corrected_words)
 
-                # Increment paragraph count
-                paragraph_count += 1
+                # Add corrected text to the current paragraph
+                paragraph_lines.append(corrected_text)
 
-                # Add a blank line after every 5 paragraphs
-                if paragraph_count % 5 == 0:
-                    formatted_transcript.append("")
+                # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
+                if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
+                    paragraph = ' '.join(paragraph_lines)
+                    paragraph = paragraph.capitalize()  # Capitalize the first letter of the paragraph
+                    formatted_paragraph = fill(paragraph, width=120)  # Format the paragraph with 120 columns
+                    formatted_transcript.append(formatted_paragraph)
+                    paragraph_lines = []
 
-        return formatted_transcript
+                    # Increment paragraph count
+                    paragraph_count += 1
+
+                    # Add a blank line after every 5 paragraphs
+                    if paragraph_count % 5 == 0:
+                        formatted_transcript.append("")
+
+            return formatted_transcript
 
     def format_and_show_progress(self):
         # Call format_transcript() method
