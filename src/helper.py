@@ -16,5 +16,6 @@ def parse_arguments():
     # Optional arguments
     parser.add_argument('-f', '--format', action='store_true', help='format the transcript by removing unwanted characters like numbers and punctuation')
     parser.add_argument('-m', '--minify', action='store_true', help='minify the transcript by removing extra whitespace and line breaks')
+    parser.add_argument('-l', help='specify a list of language in a descending priority', nargs='+')
 
     return parser.parse_args()
