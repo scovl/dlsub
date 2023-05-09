@@ -2,6 +2,32 @@
 
 ## How to contribute to the project
 
+```bash
+
+# Step 1: Create a Python virtual environment using `venv`
+python3 -m venv venv && cd venv
+
+# Step 2: Activate the virtual environment
+# On Unix or macOS:
+source bin/activate
+
+# Step 3: Clone the repository
+git clone https://github.com/lobocode/dlsub.git
+
+# Step 4: Change to the cloned directory
+cd dlsub
+
+# Step 5: Install the required packages
+pip install -r requirements.txt
+```
+
+## How to run the project example
+
+```bash
+python main.py --download 4Z59UtES2Gs -o output.txt -f -l pt
+
+```
+
 We appreciate your interest in contributing to our project! To help maintain the project's quality, please follow these guidelines when submitting your changes:
 
 1. **Create a `develop` branch**: Please create a new branch called `develop` based on the current `main` branch. This will be the branch where you'll make your changes and submit your pull request.
