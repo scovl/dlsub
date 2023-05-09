@@ -1,36 +1,34 @@
-# main.py
 import os
 import json
 from src.helper import parse_arguments
-from src.transcript_downloader import TranscriptDownloader
+from src.transcript_manager import download_and_process_transcript
 from src.transcript_processor import TranscriptProcessor
 
 def main():
     # Parse command line arguments
     args = parse_arguments()
-    
-    # Download transcript
-    downloader = TranscriptDownloader(args.download, args.l)  # Get transcript in Portuguese or English
-    transcript_list = downloader.download_transcript()
+
+    # Download and process transcript
+    transcript_list, downloader = download_and_process_transcript(args)
+    if transcript_list is None:
+        print("Transcript download failed.")
+        return
 
     # Save transcript to output file
-    if transcript_list is not None:
-        with open(args.output, 'w', encoding='utf-8') as f:
-            json.dump(transcript_list, f)
-        print(f"Transcript saved in {args.output}.")
-    else:
-        print("Transcript download failed.")
+    with open(args.output, 'w', encoding='utf-8') as f:
+        json.dump(transcript_list, f)
+    print(f"Transcript saved in {args.output}.")
 
     # Process transcript
     if args.format or args.minify:
         with open(args.output, 'r', encoding='utf-8') as f:
-            raw_transcript = json.load(f)  # Use json.load() instead of f.readlines()
+            raw_transcript = json.load(f)
 
         processor = TranscriptProcessor(raw_transcript)
 
         if args.format:
-            formatted_transcript = processor.format_transcript()
-            output_file = os.path.splitext(args.output)[0] + '_formatted.txt'
+            formatted_transcript = processor.format_and_show_progress()
+            output_file = os.path.splitext(args.output)[0] + '.txt'
 
         if args.minify:
             minified_transcript = processor.minify_transcript()
