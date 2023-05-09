@@ -33,8 +33,9 @@ class TranscriptProcessor:
             # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
             if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
                 paragraph = ' '.join(paragraph_lines)
-                paragraph = paragraph.capitalize()
-                formatted_transcript.append(paragraph)
+                paragraph = paragraph.capitalize()  # Capitalize the first letter of the paragraph
+                formatted_paragraph = fill(paragraph, width=120)  # Format the paragraph with 120 columns
+                formatted_transcript.append(formatted_paragraph)
                 paragraph_lines = []
 
                 # Increment paragraph count
