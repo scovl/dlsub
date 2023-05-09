@@ -32,9 +32,7 @@ python main.py --download <video_id> -o output.txt -m
 
 ## Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate. Read our **[CONTRIBUTING.MD](https://github.com/lobocode/dlsub/blob/main/CONTRIBUTING.MD)** file.
 
 ## License
 
