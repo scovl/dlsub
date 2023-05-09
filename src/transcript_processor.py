@@ -1,15 +1,15 @@
 import re
 import json
 from spellchecker import SpellChecker
-from textwrap import fill
 from tqdm import tqdm
 
 class TranscriptProcessor:
     """
     A class that can process transcripts of YouTube videos.
     """
-    def __init__(self, raw_transcript):
+    def __init__(self, raw_transcript, language):
         self.raw_transcript = raw_transcript
+        self.language = language
 
     def format_transcript(self):
             """
@@ -19,7 +19,7 @@ class TranscriptProcessor:
             Returns:
                 List[str]: A list of formatted transcript paragraphs.
             """
-            spell = SpellChecker(language='pt')  # Initialize the SpellChecker for Portuguese
+            spell = SpellChecker(language=self.language)
 
             formatted_transcript = []
             paragraph_lines = []
@@ -42,9 +42,9 @@ class TranscriptProcessor:
                 # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
                 if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
                     paragraph = ' '.join(paragraph_lines)
-                    paragraph = paragraph.capitalize()  # Capitalize the first letter of the paragraph
-                    formatted_paragraph = fill(paragraph, width=120)  # Format the paragraph with 120 columns
-                    formatted_transcript.append(formatted_paragraph)
+                    paragraph = paragraph.capitalize()
+
+                    formatted_transcript.append(paragraph)
                     paragraph_lines = []
 
                     # Increment paragraph count
