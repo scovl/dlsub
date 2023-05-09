@@ -24,7 +24,7 @@ def main():
         with open(args.output, 'r', encoding='utf-8') as f:
             raw_transcript = json.load(f)
 
-        processor = TranscriptProcessor(raw_transcript)
+        processor = TranscriptProcessor(raw_transcript, args.language)
 
         if args.format:
             formatted_transcript = processor.format_and_show_progress()
