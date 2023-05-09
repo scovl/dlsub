@@ -1,6 +1,8 @@
-# transcript_processor.py
 import re
 import json
+from spellchecker import SpellChecker
+from textwrap import fill
+from tqdm import tqdm
 
 class TranscriptProcessor:
     """
@@ -22,8 +24,8 @@ class TranscriptProcessor:
         paragraph_count = 0
 
         for i, transcript_item in enumerate(self.raw_transcript):
-            # Extract 'text' value
-            text = transcript_item['text']
+            # Extract 'text' value and normalize whitespace
+            text = re.sub(r'\s+', ' ', transcript_item['text']).strip()
 
             # Add text to the current paragraph
             paragraph_lines.append(text)
@@ -31,6 +33,7 @@ class TranscriptProcessor:
             # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
             if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
                 paragraph = ' '.join(paragraph_lines)
+                paragraph = paragraph.capitalize()
                 formatted_transcript.append(paragraph)
                 paragraph_lines = []
 
@@ -43,7 +46,19 @@ class TranscriptProcessor:
 
         return formatted_transcript
 
+    def format_and_show_progress(self):
+        # Call format_transcript() method
+        formatted_transcript = self.format_transcript()
 
+        # Calculate the total number of lines
+        total_lines = len(formatted_transcript)
+
+        # Iterate through the formatted_transcript and display progress
+        for i, line in enumerate(formatted_transcript):
+            print(f"\rProcessing line {i + 1}/{total_lines}", end="")
+
+        print("\nFinished processing transcript.")
+        return formatted_transcript
 
     def minify_transcript(self):
         """
@@ -60,4 +75,3 @@ class TranscriptProcessor:
         minified_transcript = minified_transcript.strip()
 
         return minified_transcript
-
