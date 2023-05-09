@@ -1,6 +1,5 @@
 1 - Cleanup the code (remove unused libraries and code)..
-2 - Try to implement the spellchecker in several languages (based on the language you define in the -l parameter).
-3 - Add changelog file.
-4 - Refactor and improve test coverage for the codebase
-5 - Incorporate setuptools for easier packaging and distribution
-6 - Integrate an AI interface for advanced transcript analysis and processing
+2 - Add changelog file.
+3 - Refactor and improve test coverage for the codebase
+4 - Incorporate setuptools for easier packaging and distribution
+5 - Integrate an AI interface for advanced transcript analysis and processing
