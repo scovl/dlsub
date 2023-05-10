@@ -2,9 +2,8 @@
 2 - Add changelog file.
 3 - Refactor and improve test coverage for the codebase.
 4 - Incorporate setuptools for easier packaging and distribution.
-5 - Integrate an AI interface for advanced transcript analysis and processing.
-6 - Create docs directory and add documentation for the project.
-7 - Create a GitHub action for automatic testing and linting.
-8 - Add a GitHub action for automatic deployment to PyPI.
-9 - Add a GitHub action for automatic deployment to GitHub releases.
-10 - Add a GitHub action for automatic deployment to GitHub packages.
+5 - Create docs directory and add documentation for the project.
+6 - Create a GitHub action for automatic testing and linting.
+7 - Add a GitHub action for automatic deployment to PyPI.
+8 - Add a GitHub action for automatic deployment to GitHub releases.
+9 - Add a GitHub action for automatic deployment to GitHub packages.
