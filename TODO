@@ -3,3 +3,4 @@
 3 - Refactor and improve test coverage for the codebase
 4 - Incorporate setuptools for easier packaging and distribution
 5 - Integrate an AI interface for advanced transcript analysis and processing
+6 - Create docs directory and add documentation for the project
