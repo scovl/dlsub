@@ -22,13 +22,12 @@ This will download the transcript and save it to `<path/to/transcript_formatted.
 python main.py --download <video_id> -o output.txt -m
 ```
 
-
 ## Installation
 
 1. Clone this repository.
 2. Create a Python virtual environment and activate it.
 3. Install the required packages with `pip install -r requirements.txt`.
-4. Run `python main.py` to download transcripts for YouTube videos.
+4. Run `python main.py --download <video_id> -o output.txt -f` to download transcripts for YouTube videos.
 
 ## Contributing
 
