@@ -22,6 +22,12 @@ This will download the transcript and save it to `<path/to/transcript_formatted.
 python main.py --download <video_id> -o output.txt -m
 ```
 
+Use with openai's gpt-3/4 to generate a summary of the video:
+
+```bash
+python main.py --download <video_id> -o output.txt -f -ai
+```
+
 ## Installation
 
 1. Clone this repository.
