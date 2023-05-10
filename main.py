@@ -3,6 +3,7 @@ import json
 from src.helper import parse_arguments
 from src.transcript_manager import download_and_process_transcript
 from src.transcript_processor import TranscriptProcessor
+from src.markai import format_transcript_with_chatgpt
 
 def main():
     # Parse command line arguments
@@ -20,7 +21,7 @@ def main():
     print(f"Transcript saved in {args.output}.")
 
     # Process transcript
-    if args.format or args.minify:
+    if args.format or args.minify or args.use_ai:
         with open(args.output, 'r', encoding='utf-8') as f:
             raw_transcript = json.load(f)
 
@@ -33,6 +34,12 @@ def main():
         if args.minify:
             minified_transcript = processor.minify_transcript()
             output_file = os.path.splitext(args.output)[0] + '_minified.txt'
+            
+        if args.use_ai: 
+            with open(os.path.splitext(args.output)[0] + '.txt', 'r', encoding='utf-8') as f:
+                raw_formatted_transcript = f.read()
+            chatgpt_formatted_transcript = format_transcript_with_chatgpt(raw_formatted_transcript, args.language[0])
+            output_file = os.path.splitext(args.output)[0] + '_ai.txt'
 
         with open(output_file, 'w', encoding='utf-8') as f:
             if args.format:
@@ -41,6 +48,10 @@ def main():
 
             if args.minify:
                 f.write(minified_transcript)
+                
+
+            if args.use_ai: 
+                f.write(chatgpt_formatted_transcript)
 
         print(f"Processed transcript saved in {output_file}.")
 
