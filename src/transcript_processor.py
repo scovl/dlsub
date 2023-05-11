@@ -2,6 +2,11 @@ import re
 import json
 from spellchecker import SpellChecker
 from tqdm import tqdm
+import textwrap
+import nltk
+
+# Download the 'punkt' resource
+nltk.download('punkt')
 
 class TranscriptProcessor:
     """
@@ -12,49 +17,45 @@ class TranscriptProcessor:
         self.language = language
 
     def format_transcript(self):
-            """
-            Format a transcript by extracting only 'text' values and grouping them into paragraphs of 5 lines each,
-            with a blank line between every 5 paragraphs. Corrects text using pyspellchecker.
+        """
+        Format a transcript by extracting only 'text' values, correcting text using pyspellchecker,
+        and wrapping the text into paragraphs for easy reading using NLTK, with a space between paragraphs.
 
-            Returns:
-                List[str]: A list of formatted transcript paragraphs.
-            """
-            spell = SpellChecker(language=self.language)
+        Returns:
+            List[str]: A list of formatted transcript paragraphs with spaces.
+        """
+        spell = SpellChecker(language=self.language)
 
-            formatted_transcript = []
-            paragraph_lines = []
-            paragraph_count = 0
+        corrected_texts = []
 
-            for i in tqdm(range(len(self.raw_transcript)), desc="Formatting", unit=" lines"):
-                transcript_item = self.raw_transcript[i]
-                
-                # Extract 'text' value
-                text = transcript_item['text']
+        for transcript_item in tqdm(self.raw_transcript, desc="Formatting", unit=" lines"):
+            # Extract 'text' value
+            text = transcript_item['text']
 
-                # Correct the text using pyspellchecker
-                words = text.split()
-                corrected_words = [spell.correction(word) if spell.correction(word) is not None else word for word in words]
-                corrected_text = ' '.join(corrected_words)
+            # Correct the text using pyspellchecker
+            words = text.split()
+            corrected_words = [spell.correction(word) if spell.correction(word) is not None else word for word in words]
+            corrected_text = ' '.join(corrected_words)
 
-                # Add corrected text to the current paragraph
-                paragraph_lines.append(corrected_text)
+            corrected_texts.append(corrected_text)
 
-                # If the current paragraph has 5 lines or this is the last line, join the paragraph and add it to the list
-                if (i + 1) % 5 == 0 or i == len(self.raw_transcript) - 1:
-                    paragraph = ' '.join(paragraph_lines)
-                    paragraph = paragraph.capitalize()
+        # Combine all corrected texts into a single string
+        full_text = ' '.join(corrected_texts)
 
-                    formatted_transcript.append(paragraph)
-                    paragraph_lines = []
+        # Split the text into sentences using nltk
+        sentences = nltk.sent_tokenize(full_text)
 
-                    # Increment paragraph count
-                    paragraph_count += 1
+        # Combine sentences into paragraphs
+        paragraph_size = 5
+        paragraphs = [' '.join(sentences[i:i + paragraph_size]) for i in range(0, len(sentences), paragraph_size)]
 
-                    # Add a blank line after every 5 paragraphs
-                    if paragraph_count % 5 == 0:
-                        formatted_transcript.append("")
+        # Add a space between paragraphs
+        formatted_transcript = []
+        for paragraph in paragraphs:
+            formatted_transcript.append(paragraph)
+            formatted_transcript.append("")
 
-            return formatted_transcript
+        return formatted_transcript
 
     def format_and_show_progress(self):
         # Call format_transcript() method
