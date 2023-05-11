@@ -1,3 +1,4 @@
+nltk==3.8.1
 openai==0.27.6
 pyspellchecker==0.7.2
 setuptools==44.1.1
