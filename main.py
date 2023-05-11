@@ -33,7 +33,7 @@ def main():
 
         if args.minify:
             minified_transcript = processor.minify_transcript()
-            output_file = os.path.splitext(args.output)[0] + '_minified.txt'
+            output_file = os.path.splitext(args.output)[0] + '.txt'
             
         if args.use_ai: 
             with open(os.path.splitext(args.output)[0] + '.txt', 'r', encoding='utf-8') as f:
