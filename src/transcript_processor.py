@@ -7,9 +7,6 @@ import textwrap
 import subprocess
 import sys
 
-# Carregar o modelo spacy
-nlp = spacy.load('pt_core_news_sm')
-
 class TranscriptProcessor:
     """
     A class that can process transcripts of YouTube videos.
