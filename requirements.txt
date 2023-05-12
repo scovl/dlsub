@@ -1,6 +1,6 @@
-nltk==3.8.1
+enelvo==0.15
 openai==0.27.6
-pyspellchecker==0.7.2
 setuptools==44.1.1
+spacy==3.5.2
 tqdm==4.65.0
 youtube_transcript_api==0.6.0
