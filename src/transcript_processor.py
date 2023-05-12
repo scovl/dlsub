@@ -7,6 +7,10 @@ import textwrap
 import subprocess
 import sys
 
+
+# Now, we can safely load the model
+nlp = spacy.load('pt_core_news_sm')
+
 class TranscriptProcessor:
     """
     A class that can process transcripts of YouTube videos.
@@ -35,8 +39,7 @@ class TranscriptProcessor:
     # Check and install 'pt_core_news_sm' model
     check_and_install_spacy_models(['pt_core_news_sm'])
 
-    # Now, we can safely load the model
-    nlp = spacy.load('pt_core_news_sm')
+
 
     def format_transcript(self):
         """
