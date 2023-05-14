@@ -1,5 +1,5 @@
 enelvo==0.15
-openai==0.27.6
+pychatsonic==0.1
 setuptools==44.1.1
 spacy==3.5.2
 tqdm==4.65.0
