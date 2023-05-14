@@ -22,6 +22,8 @@ Use with writesonic/chatsonic to generate a summary of the video:
 python main.py --download <video_id> -o output.txt -ai
 ```
 
+> To acquire your api_key, access the following video for information **[https://www.youtube.com/watch?v=YbRRPk9qRxY](https://www.youtube.com/watch?v=YbRRPk9qRxY)**.
+
 ## Installation
 
 1. Clone this repository.
