@@ -11,7 +11,7 @@ def process_with_ai(args, formatted_transcript):
     output_file_ai = os.path.splitext(args.output)[0] + '_ai.txt'
     try:
         chat = ChatSonic(api_key, f"{args.language}")
-        ai_transcript = chat.ask(f"Just correct the following text in the language {args.language}: {' '.join(formatted_transcript)}")
+        ai_transcript = chat.ask(f"Just correct the following text in the language {args.language} and separate the paragraphs correctly: {' '.join(formatted_transcript)}")
     except Exception as e:
         print("Error processing with AI: {}".format(e))
         return
