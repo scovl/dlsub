@@ -16,16 +16,10 @@ Replace `<video_id>` with the ID of the YouTube video you want to download subti
 python main.py --download <video_id> -o output.txt -f
 ```
 
-This will download the transcript and save it to `<path/to/transcript_formatted.txt>`. To minify the transcript, use the `-m` or `--minify` option:
+Use with writesonic/chatsonic to generate a summary of the video:
 
 ```bash
-python main.py --download <video_id> -o output.txt -m
-```
-
-Use with openai's gpt-3/4 to generate a summary of the video:
-
-```bash
-python main.py --download <video_id> -o output.txt -f -ai
+python main.py --download <video_id> -o output.txt -ai
 ```
 
 ## Installation
