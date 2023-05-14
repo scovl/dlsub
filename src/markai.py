@@ -1,18 +1,12 @@
-import openai
+from pychatsonic.chat import ChatSonic
+import os
 
-# Configure sua chave de API
-openai.api_key = "YOUR-API-KEY"
+def process_with_ai(args, formatted_transcript):
+    output_file_ai = os.path.splitext(args.output)[0] + '_ai.txt'
+    chat = ChatSonic("add-your-api-key", f"{args.language}")
+    ai_transcript = chat.ask(f"Apenas corrija o texto a seguir: {' '.join(formatted_transcript)}")
 
-def format_transcript_with_chatgpt(transcript, language):
-    prompt = f"Rewrite the following text in {language}, correcting grammatical and punctuation errors, and making it didactic: {transcript}"
-
-    response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        max_tokens=1024,
-        n=1,
-        stop=None,
-        temperature=0.5,
-    )
-
-    return response.choices[0].text.strip()
+    with open(output_file_ai, 'w', encoding='utf-8') as file:
+        file.write(ai_transcript)
+    
+    return output_file_ai
