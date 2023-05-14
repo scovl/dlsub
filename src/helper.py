@@ -15,7 +15,6 @@ def parse_arguments():
 
     # Optional arguments
     parser.add_argument('-f', '--format', action='store_true', help='format the transcript by removing unwanted characters like numbers and punctuation')
-    parser.add_argument('-m', '--minify', action='store_true', help='minify the transcript by removing extra whitespace and line breaks')
     parser.add_argument('-l', '--language', metavar='LANGUAGE_CODE', default=['en'], nargs='+', help='language codes of the transcript, default is "en"')
     parser.add_argument('-ai', '--use-ai', action='store_true', help='use ChatGPT to format and improve the transcript content')
 
