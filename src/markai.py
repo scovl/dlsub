@@ -12,7 +12,7 @@ class AiProcessor:
         return False if not self.api_key or self.api_key == "add-your-api-key" else True
 
     def _get_output_filename(self, output):
-        return os.path.splitext(output)[0] + '_ai.txt'
+        return os.path.splitext(output)[0] + '.txt'
 
     def _process_transcript(self, language, formatted_transcript, question):
         try:
