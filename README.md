@@ -7,19 +7,19 @@ dlsub is a command line tool for downloading transcripts of YouTube videos. It u
 To download a transcript for a YouTube video, use the following command:
 
 ```bash
-python main.py --download <video_id> -o output.txt -l en
+python dlsub.py --download <video_id> -o output.txt -l en
 ```
 
 Replace `<video_id>` with the ID of the YouTube video you want to download subtitles from. The video ID is the part of the URL after `watch?v=`. By default, the transcript will not be formatted. To format the transcript, use the `-f` or `--format` option:
 
 ```bash
-python main.py --download <video_id> -o output.txt -l en -f 
+python dlsub.py --download <video_id> -o output.txt -l en -f 
 ```
 
 Use with writesonic/chatsonic to generate a summary of the video:
 
 ```bash
-python main.py --download <video_id> -o output.txt -l en -ai
+python dlsub.py --download <video_id> -o output.txt -l en -ai
 ```
 
 > To acquire your api_key, access the following video for information **[https://www.youtube.com/watch?v=YbRRPk9qRxY](https://www.youtube.com/watch?v=YbRRPk9qRxY)**.
@@ -27,7 +27,7 @@ python main.py --download <video_id> -o output.txt -l en -ai
 Use -s --sumarize to generate a summary of the video:
 
 ```bash
-python main.py --download <video_id> -o output.txt -l en -ai -s
+python dlsub.py --download <video_id> -o output.txt -l en -ai -s
 ```
 
 ## Installation
@@ -35,7 +35,7 @@ python main.py --download <video_id> -o output.txt -l en -ai -s
 1. Clone this repository.
 2. Create a Python virtual environment and activate it.
 3. Install the required packages with `pip install -r requirements.txt`.
-4. Run `python main.py --download <video_id> -o output.txt -f` to download transcripts for YouTube videos.
+4. Run `python dlsub.py --download <video_id> -o output.txt -f` to download transcripts for YouTube videos.
 
 ## Contributing
 
