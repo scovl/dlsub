@@ -54,7 +54,7 @@ class DlSub:
                 self.format_transcript(formatted_transcript)
 
             if self.args.use_ai or self.args.summarize:
-                ai_processor = AiProcessor("8516f106-cacb-42ad-96a8-e49387865e9e")  # replace with your actual API key
+                ai_processor = AiProcessor("add-your-api-key")  # replace with your actual API key
                 if self.args.use_ai:
                     self.process_with_ai(ai_processor, formatted_transcript)
                 if self.args.summarize:
