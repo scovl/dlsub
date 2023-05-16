@@ -1,5 +1,7 @@
 # dlsub
 
+[![GitPod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://github.com/lobocode/dlsub)
+
 dlsub is a command line tool for downloading transcripts of YouTube videos. It uses the YouTube Transcript API to download the transcript and save it to a file. The downloaded transcript can be optionally formatted to remove unwanted characters like numbers and punctuation.
 
 ## Usage
@@ -15,14 +17,17 @@ Replace `<video_id>` with the ID of the YouTube video you want to download subti
 ```bash
 python dlsub.py --download <video_id> -o output.txt -l en -f 
 ```
+Configure the file `config_ai.yaml` with your chatsonic api_key. Eg:
 
-Use with writesonic/chatsonic to generate a summary of the video:
+```yaml
+api_key: add-your-api-key
+```
+
+To acquire your api_key, access the following video for information **[How to Get Chatsonic API Key](https://www.youtube.com/watch?v=YbRRPk9qRxY)**. Use with writesonic/chatsonic to generate a summary of the video:
 
 ```bash
 python dlsub.py --download <video_id> -o output.txt -l en -ai
 ```
-
-> To acquire your api_key, access the following video for information **[https://www.youtube.com/watch?v=YbRRPk9qRxY](https://www.youtube.com/watch?v=YbRRPk9qRxY)**.
 
 Use -s --sumarize to generate a summary of the video:
 
