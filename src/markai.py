@@ -1,11 +1,26 @@
 from pychatsonic.chat import ChatSonic
 import os
 
+class InvalidApiKeyError(Exception):
+    """Exception raised for errors in the API key.
+
+    Attributes:
+        message -- explanation of the error
+    """
+
+    def __init__(self, message="Invalid API key. Please provide a valid API key."):
+        self.message = message
+        super().__init__(self.message)
+        
 class AiProcessor:
     def __init__(self, api_key):
         self.api_key = api_key
-        if not self._check_api_key():
-            raise ValueError("Invalid API key. Please provide a valid API key.")
+        try:
+            if not self._check_api_key():
+                raise InvalidApiKeyError()
+        except InvalidApiKeyError as e:
+            print(e)
+            return
         self.chat = None
     
     def _check_api_key(self):
