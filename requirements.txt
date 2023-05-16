@@ -1,5 +1,6 @@
 enelvo==0.15
 pychatsonic==0.1
+PyYAML==6.0
 setuptools==44.1.1
 spacy==3.5.2
 tqdm==4.65.0
