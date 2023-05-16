@@ -1,5 +1,6 @@
 import os
 import json
+import yaml
 from src.helper import ArgumentParser
 from src.transcript_manager import download_and_process_transcript
 from src.transcript_processor import TranscriptProcessor
@@ -54,7 +55,18 @@ class DlSub:
                 self.format_transcript(formatted_transcript)
 
             if self.args.use_ai or self.args.summarize:
-                ai_processor = AiProcessor("add-your-api-key")  # replace with your actual API key
+                
+                # Load API key from config_ai.yml
+                with open("config_ai.yml", 'r') as stream:
+                    try:
+                        config = yaml.safe_load(stream)
+                        api_key = config['api_key']
+                    except yaml.YAMLError as exc:
+                        print(exc)
+                        return
+                ai_processor = AiProcessor(api_key)
+                
+                # Format transcript with and summarize
                 if self.args.use_ai:
                     self.process_with_ai(ai_processor, formatted_transcript)
                 if self.args.summarize:
