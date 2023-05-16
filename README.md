@@ -1,6 +1,6 @@
 # dlsub
 
-[![GitPod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://github.com/lobocode/dlsub)
+[![GitPod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lobocode/dlsub)
 
 dlsub is a command line tool for downloading transcripts of YouTube videos. It uses the YouTube Transcript API to download the transcript and save it to a file. The downloaded transcript can be optionally formatted to remove unwanted characters like numbers and punctuation.
 
