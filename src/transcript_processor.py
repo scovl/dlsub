@@ -39,8 +39,6 @@ class TranscriptProcessor:
     # Check and install 'pt_core_news_sm' model
     check_and_install_spacy_models(['pt_core_news_sm'])
 
-
-
     def format_transcript(self):
         """
         Format a transcript by extracting only 'text' values, correcting text using Enelvo,
@@ -67,30 +65,31 @@ class TranscriptProcessor:
         # Split the text into sentences using spacy
         doc = nlp(full_text)
         sentences = [sent.text.strip() for sent in doc.sents]
-        
-        # Add comma after coordinating conjunctions that start a new independent clause
-        corrected_sentences = []
-        for sent in doc.sents:
-            corrected_sent = []
-            for token in sent:
-                if token.dep_ == 'cc' and token.head.pos_ == 'VERB' and token.i < token.head.i:
-                    corrected_sent.append(token.text + ',')  # Add comma to the conjunction
-                else:
-                    corrected_sent.append(token.text)
-            corrected_sentences.append(' '.join(corrected_sent))
 
-
-        # Combine sentences into paragraphs based on a fixed number of characters
-        paragraph_size = 500  # Change this number to adjust paragraph length
-        paragraphs = textwrap.wrap(' '.join(sentences), paragraph_size)
+        paragraph_size = 400  # Change this number to adjust paragraph length
+        paragraphs = []
+        current_paragraph = ""
+        for sentence in sentences:
+            if len(current_paragraph) + len(sentence) > paragraph_size:
+                # Use textwrap.fill() to break lines at a specified width
+                paragraphs.append(textwrap.fill(current_paragraph.strip(), width=paragraph_size))
+                current_paragraph = sentence
+            else:
+                current_paragraph += " " + sentence
+        # Append the last paragraph if it's non-empty
+        if current_paragraph.strip():
+            paragraphs.append(textwrap.fill(current_paragraph.strip(), width=paragraph_size))
 
         # Add a space between paragraphs and capitalize first letter of each paragraph
         formatted_transcript = []
         for paragraph in paragraphs:
             # Capitalize first letter of each paragraph and append it to formatted_transcript
-            formatted_transcript.append(paragraph.capitalize())
+            capitalized_paragraph = paragraph[0].upper() + paragraph[1:]
+            # Append capitalized_paragraph to formatted_transcript
+            formatted_transcript.append(capitalized_paragraph)
+            # Append an empty string to create a space between paragraphs
             formatted_transcript.append("")
-
+        
         return formatted_transcript
 
     def format_and_show_progress(self):
